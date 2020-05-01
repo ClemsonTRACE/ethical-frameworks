@@ -8,8 +8,9 @@ class Ethical_Sim:
     dilemmasDone = [] #Dilemma list the player traversed
     QUESTION_COUNT = None #Number of questions we want to ask
     modifierTypes = ("P_Number", "T_Number", "H_Percent", "M_Percent", "L_Percent", "Result", "Gift")
-    relationOptions = ("Family Member(s)", "Friend(s)", "Elderly Stranger(s)", "Young Stranger(s)", "Stranger(s)")
+    relationOptions = ("Family Member(s)", "Friend(s)", "Stranger(s)")
     results = ["Dead", "In Pain"]
+    #AGE Modifiers?
 
     def __init__(self, questionCount):
         json_array = json.load(open("Dilemna.json"))
@@ -73,20 +74,25 @@ class Ethical_Sim:
     #Do not Deliberately Harm Others
     #Do not Deliberately Harm Yourself
     #Do not Steal
-    #Do not Lie
+    #Do not Lie 
+    #Act the way that is the maxum you can will as a universal 
     def deontologyReward(self, dilemma, decision):
 
-    
+    #1     2
+    #10    5
+    #10/10 5/10
+    #young = 1
+    #middle = 0.9
+    #old = 0.8
+
     #Virtues ethics are based on common virtues that are seen in humans.  While 
     #this study does not focus on every virtue, this is designed to act as a 
     #representative base for what virtue ethics would look like.  Relavent Virtues 
     #scored with 0 for ignore or 1 for prioritize include:
-    #Justice - Dealing fairly with others
     #Liberality - The virtue of charity
     #Friendliness - Be friendly to other
-    #Prioritize Relationships - emphasise family and friends 
+    #Loyalty - emphasise family and friends 
     #Courage - Aware of danger, but act
-    #Shame - Understand a moral error, but willing to risk
     #Truthfulness - virtue of honesty
     def virtueEthicsReward(self, dilemma, decision):
         

@@ -11,10 +11,10 @@
         "Relationships":[],
         "target_0":[1,2],
         "target_1":[4,3],
-        "deon_values_0": [1,1,1,-1,-1],
-        "deon_values_1": [0,0,0,-1,-1],
-        "virtue_values_0": [-1,-1,-1,2,0,0,-1],
-        "virtue_values_1": [0,-1,-1,2,1,1,-1]
+        "deon_values_0": [1,1,-1,-1,-1],
+        "deon_values_1": [0,0,-1,-1,-1],
+        "virtue_values_0": [-1,-1,2,0,-1],
+        "virtue_values_1": [-1,-1,2,1,-1]
     },
     {
         "id":1,
@@ -28,10 +28,10 @@
         "Relationships":[],
         "target_0":[6,4],
         "target_1":[6,2],
-        "deon_values_0": [1,1,0,-1,-1],
-        "deon_values_1": [2,0,1,-1,-1],
-        "virtue_values_0": [-1,-1,-1,2,0,0,-1],
-        "virtue_values_1": [-1,1,1,2,1,1,-1]
+        "deon_values_0": [0.5,0.5,0.5,-1,-1],
+        "deon_values_1": [0.5,0.5,0.5,-1,-1],
+        "virtue_values_0": [1,-1,2,1,-1],
+        "virtue_values_1": [0,-1,2,0,-1]
     },
     {
         "id":2,
@@ -45,10 +45,10 @@
         "Relationships":[],
         "target_0":[0,5],
         "target_1":[0,4],
-        "deon_values_0": [1,1,0,-1,-1],
-        "deon_values_1": [2,0,1,-1,-1],
-        "virtue_values_0": [-1,-1,-1,2,0,0,-1],
-        "virtue_values_1": [-1,1,1,2,1,1,-1]
+        "deon_values_0": [-1,2,-1,0,0],
+        "deon_values_1": [-1,2,-1,1,1],
+        "virtue_values_0": [1,0,2,1,0],
+        "virtue_values_1": [0.5,1,2,0,1]
     },
     {
         "id":3,
@@ -61,7 +61,11 @@
         "Modifiers":[],
         "Relationships":[],
         "target_0":[4,1],
-        "target_1":[5,1]
+        "target_1":[5,1],
+        "deon_values_0": [-1,2,-1,0,0],
+        "deon_values_1": [-1,2,-1,1,1],
+        "virtue_values_0": [1,0,2,1,0],
+        "virtue_values_1": [0.5,1,2,0,1]
     },
     {
         "id":4,
@@ -74,7 +78,11 @@
         "Modifiers":[],
         "Relationships":[],
         "target_0":[2,0],
-        "target_1":[3,5]
+        "target_1":[3,5],
+        "deon_values_0": [-1,1,-1,-1,0],
+        "deon_values_1": [-1,0,-1,-1,1],
+        "virtue_values_0": [-1,0,2,1,1],
+        "virtue_values_1": [-1,1,2,0,0]
     },
     {
         "id":5,
@@ -87,7 +95,11 @@
         "Modifiers":[],
         "Relationships":[],
         "target_0":[3,6],
-        "target_1":[1,6]
+        "target_1":[1,6],
+        "deon_values_0": [0,0,0,-1,-1],
+        "deon_values_1": [1,1,1,-1,-1],
+        "virtue_values_0": [-1,0,2,1,-1],
+        "virtue_values_1": [-1,0.5,2,0,-1]
     },
     {
         "id":6,
@@ -95,11 +107,15 @@
         "Description": "While walking on the sidewalk you are pickpocketed. The pickpocket has taken your [M0] and is running away from you. You are physically capable of chasing the pickpocket down, tackling him, and recovering your [M0] with a [M1]% of causing Harm to the pickpocket. You have a [M2]% chance of remaining unharmed from the tustle. Afterwards, the pickpocket will run away. Alternatively, you can do nothing and instead call the police, with a [M3]% chance of recovering your [M0]. What should you do?",
         "Option_0":"Chase down and tackle the pickpocket",
         "Option_1":"Do nothing and call the police",
-        "Modifier_Types":["Gift","M_Percent","L_Percent","L_Percent"],
+        "Modifier_Types":["Gift","M_Percent","L_Percent","VL_Percent"],
         "Relation_Count":0,
         "Modifiers":[],
         "Relationships":[],
         "target_0":[5,3],
-        "target_1":[2,0]
+        "target_1":[2,0],
+        "deon_values_0": [-1,0,0,-1,-1],
+        "deon_values_1": [-1,1,0.5,-1,-1],
+        "virtue_values_0": [0,0,-1,1,-1],
+        "virtue_values_1": [1,1,-1,0,-1]
     }
 ]
