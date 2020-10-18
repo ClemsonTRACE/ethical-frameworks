@@ -4,7 +4,7 @@ import sys
 
 class Ethical_Sim:
     dilemmas = [] #Dilemmas that the player will tackle
-    gifts = ["A Hat", "A Board Game", "A Sweater", "A New Bike", "A New Computer"]
+    gifts = ["A Hat", "A Board Game", "A Sweater", "A Bike", "A Computer"]
     dilemmasDone = [] #Dilemma list the player traversed
     QUESTION_COUNT = None #Number of questions we want to ask
     modifierTypes = ("P_Number", "T_Number", "H_Percent", "M_Percent", "L_Percent", "Result", "Gift")
@@ -22,8 +22,6 @@ class Ethical_Sim:
 
         #Generate initial node randomly
         self.makeNextDilemma(random.randint(0,len(self.dilemmas)-1), random.randint(0,1))
-
-
 
     #Make a decision on the current dilemma and pick the next one, this needs 
     #to be separate form the sending of a dilemma due to the first node being 
@@ -65,7 +63,7 @@ class Ethical_Sim:
     #valued at a 0.5, the reward is calculated for how much good is made vs. 
     #how much total good is available
     def utilitarianReward(self, dilemma, decision):
-        
+        pass
 
     #The deontology reward is based on a strict act based deontology where 
     #hard rules are set and not broken. These are scored with 0 for break
@@ -77,7 +75,7 @@ class Ethical_Sim:
     #Do not Lie 
     #Act the way that is the maxum you can will as a universal 
     def deontologyReward(self, dilemma, decision):
-
+        pass
     #1     2
     #10    5
     #10/10 5/10
@@ -95,7 +93,7 @@ class Ethical_Sim:
     #Courage - Aware of danger, but act
     #Truthfulness - virtue of honesty
     def virtueEthicsReward(self, dilemma, decision):
-        
+        pass
             
     
 sim = Ethical_Sim(20)
