@@ -20,8 +20,8 @@
         "deon_mods_1":[],
         "virtue_values_0": [-1,-1,2,0,-1],
         "virtue_values_1": [-1,-1,2,1,-1],
-        "virtue_mods_0":["relation_2"],
-        "virtue_mods_1":["relation_1"]
+        "virtue_mods_0":["relation_1"],
+        "virtue_mods_1":["relation_0"]
     },
     {
         "id":1,
@@ -44,7 +44,7 @@
         "deon_mods_1":[],
         "virtue_values_0": [1,-1,2,1,-1],
         "virtue_values_1": [0,-1,0,0,-1],
-        "virtue_mods_0":["relation_1"],
+        "virtue_mods_0":["relation_0"],
         "virtue_mods_1":[]
     },
     {
@@ -62,14 +62,14 @@
         "util_denom":["M1","1"],
         "target_0":[0,5],
         "target_1":[0,4],
-        "deon_values_0": [-1,2,-1,0,0],
-        "deon_values_1": [-1,2,-1,1,1],
-        "deon_mods_0":["M1"],
-        "deon_mods_1":["M1"],
+        "deon_values_0": [-1,0.5,-1,0,0],
+        "deon_values_1": [-1,0.5,-1,1,1],
+        "deon_mods_0":[],
+        "deon_mods_1":[],
         "virtue_values_0": [1,0,2,1,0],
         "virtue_values_1": [0.5,1,0,0,1],
         "virtue_mods_0":["relation_0"],
-        "virtue_mods_1":["relation_0"]]
+        "virtue_mods_1":["relation_0"]
     },
     {
         "id":3,
@@ -84,8 +84,8 @@
         "target_0":[4,1],
         "target_1":[5,1],
         "util_values_0":["M1","M2"],
-        "util_values_1":["M0","X-0.5"],
-        "util_denom":["M0","M1","M2","X-0.5"],
+        "util_values_1":["M0","X0.5"],
+        "util_denom":["M1","M2","M0","X0.5"],
         "deon_values_0": [-1,1,-1,0,0],
         "deon_values_1": [-1,0,-1,1,1],
         "deon_mods_0": [],
@@ -139,7 +139,7 @@
         "deon_mods_0":[],
         "deon_mods_1":[],
         "virtue_values_0": [-1,0,2,1,-1],
-        "virtue_values_1": [-1,0.5,2,0,-1],
+        "virtue_values_1": [-1,0.5,0,0,-1],
         "virtue_mods_0":["relation_0"],
         "virtue_mods_1":[]
     },
@@ -149,15 +149,15 @@
         "Description": "While walking on the sidewalk you are pickpocketed. The pickpocket has taken your [M0] and is running away from you. You are physically capable of chasing the pickpocket down, tackling him, and recovering your [M0] with a [M1]% of causing Harm to the pickpocket. You have a [M2]% chance of remaining unharmed from the tustle. Afterwards, the pickpocket will run away. Alternatively, you can do nothing and instead call the police, with a [M3]% chance of recovering your [M0]. What should you do?",
         "Option_0":"Chase down and tackle the pickpocket",
         "Option_1":"Do nothing and call the police",
-        "Modifier_Types":["Gift","M_Percent","L_Percent","VL_Percent"],
+        "Modifier_Types":["Gift","M_Percent","L_Percent","L_Percent"],
         "Relation_Count":0,
         "Modifiers":[],
         "Relationships":[],
         "target_0":[5,3],
         "target_1":[2,0],
         "util_values_0":["M0"],
-        "util_values_1":["M0","X-M3"],
-        "util_denom":["M0","M0","X-M3"],
+        "util_values_1":["M0","X3"],
+        "util_denom":["M0","M0","X3"],
         "deon_values_0": [-1,0,0,-1,-1],
         "deon_values_1": [-1,1,0.5,-1,-1],
         "deon_mods_0": [],

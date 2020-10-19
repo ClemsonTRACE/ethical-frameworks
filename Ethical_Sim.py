@@ -5,11 +5,14 @@ import sys
 class Ethical_Sim:
     dilemmas = [] #Dilemmas that the player will tackle
     gifts = ["A Hat", "A Board Game", "A Sweater", "A Bike", "A Computer"]
+    gift_values = [0.2, 0.4, 0.6, 0.8, 1]
     dilemmasDone = [] #Dilemma list the player traversed
     QUESTION_COUNT = None #Number of questions we want to ask
     modifierTypes = ("P_Number", "T_Number", "H_Percent", "M_Percent", "L_Percent", "Result", "Gift")
-    relationOptions = ("Family Member(s)", "Friend(s)", "Stranger(s)")
+    relations = ("Family Member(s)", "Friend(s)", "Stranger(s)")
+    relation_values = [1,0.5,0]
     results = ["Dead", "In Pain"]
+    results_values = [1,0.5]
     #AGE Modifiers?
 
     def __init__(self, questionCount):
@@ -30,7 +33,6 @@ class Ethical_Sim:
         nextDilemma = random.choice(self.dilemmas[currentDilemma]["target_"+str(decision)])
         node = self.dilemmas[nextDilemma].copy()
         for ind, mod in enumerate(node["Modifier_Types"]):
-            print(mod)
             if mod == self.modifierTypes[0]: #People
                 node["Modifiers"].append(random.randint(0, 10))
             elif mod == self.modifierTypes[1]: #Time (Days)
@@ -45,11 +47,10 @@ class Ethical_Sim:
                 node["Modifiers"].append(random.choice(self.results))
             elif mod == self.modifierTypes[6]: #Gift
                 node["Modifiers"].append(random.choice(self.gifts))
-            print(node["Modifiers"])
             node["Description"] = node["Description"].replace("[M"+str(ind)+"]", str(node["Modifiers"][-1]))
         
         for relation in range(0, node["Relation_Count"]):
-            node["Relationships"].append(random.choice(self.relationOptions))
+            node["Relationships"].append(random.choice(self.relations))
             node["Description"] = node["Description"].replace("[relation_"+str(relation)+"]", node["Relationships"][-1])
 
         self.dilemmasDone.append(node)
@@ -63,7 +64,68 @@ class Ethical_Sim:
     #valued at a 0.5, the reward is calculated for how much good is made vs. 
     #how much total good is available
     def utilitarianReward(self, dilemma, decision):
-        pass
+        numer_1 = 0
+        numer_2 = 0
+        base = []
+        mul = []
+        for value in dilemma['util_values_0']:
+            if value[0] == "M":
+                temp = int(value[1:])
+                temp_type = dilemma['Modifier_Types'][temp]
+                if temp_type == "Gift":
+                    gift = dilemma['Modifiers'][temp]
+                    gift = self.gifts.index(gift)
+                    base.append(self.gift_values[gift])
+                elif temp_type == "Result":
+                    res = dilemma['Modifiers'][temp]
+                    res = self.results.index(res)
+                    base.append(self.results_values[res])
+                else:
+                    base.append(dilemma['Modifiers'][int(value[1:])])
+                mul.append(1)
+            elif value[0] == "X":
+                if len(value[1:]) > 0:
+                    mul[-1] = float(value[1:])
+                else:
+                    mul[-1] = dilemma['Modifiers'][int(value[1:])]
+            else:
+                base.append(float(value))
+                mul.append(1)
+        for i in range(len(base)):  
+            numer_1 += base[i] * mul[i]
+        
+        base = []
+        mul = []
+        for value in dilemma['util_values_1']:
+            if value[0] == "M":
+                temp = int(value[1:])
+                temp_type = dilemma['Modifier_Types'][temp]
+                if temp_type == "Gift":
+                    gift = dilemma['Modifiers'][temp]
+                    gift = self.gifts.index(gift)
+                    base.append(self.gift_values[gift])
+                elif temp_type == "Result":
+                    res = dilemma['Modifiers'][temp]
+                    res = self.results.index(res)
+                    base.append(self.results_values[res])
+                else:
+                    base.append(dilemma['Modifiers'][int(value[1:])])
+                mul.append(1)
+            elif value[0] == "X":
+                if len(value[1:]) > 1:
+                    mul[-1] = float(value[1:])
+                else: 
+                    mul[-1] = dilemma['Modifiers'][int(value[1:])]
+            else:
+                base.append(float(value))
+                mul.append(1)
+        for i in range(len(base)):
+            numer_2 += base[i] * mul[i]
+
+        if not decision: #decision 0
+            return numer_1 / (numer_1 + numer_2)
+        else: #decision 1
+            return numer_2 / (numer_1 + numer_2)
 
     #The deontology reward is based on a strict act based deontology where 
     #hard rules are set and not broken. These are scored with 0 for break
@@ -75,13 +137,23 @@ class Ethical_Sim:
     #Do not Lie 
     #Act the way that is the maxum you can will as a universal 
     def deontologyReward(self, dilemma, decision):
-        pass
-    #1     2
-    #10    5
-    #10/10 5/10
-    #young = 1
-    #middle = 0.9
-    #old = 0.8
+        numer_1 = 0
+        numer_2 = 0
+        num_1_count = 0
+        num_2_count = 0
+        for value in dilemma['deon_values_0']:
+            if value != -1:
+                numer_1 += float(value)
+                num_1_count += 1
+        for value in dilemma['deon_values_1']:
+            if value != -1:
+                numer_2 += float(value)
+                num_2_count += 1
+        if not decision:
+            return numer_1 / num_1_count
+        else:
+            return numer_2 / num_2_count
+
 
     #Virtues ethics are based on common virtues that are seen in humans.  While 
     #this study does not focus on every virtue, this is designed to act as a 
@@ -93,8 +165,47 @@ class Ethical_Sim:
     #Courage - Aware of danger, but act
     #Truthfulness - virtue of honesty
     def virtueEthicsReward(self, dilemma, decision):
-        pass
+        numer_1 = 0
+        numer_2 = 0
+        count = 0
+        num_1_count = 0
+        num_2_count = 0
+        for value in dilemma['virtue_values_0']:
+            if value == -1:
+                continue
+            if value == 2:
+                relation = dilemma['virtue_mods_0'][count]
+                relation = int(relation[-1])
+                relation = dilemma['Relationships'][relation]
+                relation = self.relations.index(relation)
+                relation = self.relation_values[relation]
+                numer_1 += relation
+                num_1_count += 1
+                count += 1
+            else:
+                numer_1 += float(value)
+                num_1_count += 1
+        count = 0
+        for value in dilemma['virtue_values_1']:
+            if value == -1:
+                continue
+            if value == 2:
+                relation = dilemma['virtue_mods_1'][count]
+                relation = int(relation[-1])
+                relation = dilemma['Relationships'][relation]
+                relation = self.relations.index(relation)
+                relation = self.relation_values[relation]
+                numer_2 += relation
+                num_2_count += 1
+                count += 1
+            else:
+                numer_2 += float(value)
+                num_2_count += 1
+        if not decision:
+            return numer_1 / num_1_count
+        else:
+            return numer_2 / num_1_count
             
     
 sim = Ethical_Sim(20)
-print(sim.dilemmasDone[-1])
+sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],0)
