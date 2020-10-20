@@ -15,11 +15,10 @@ class CustomEnvironment(Environment):
         super().__init__() 
     
     def states(self):
-        return dict(type='float', shape=(37,))
+        return dict(type='float', shape=(38,))
 
     def actions(self):
-        return {"option_0": dict(type="float", min_value=0.0, max_value=1.0),
-                "option_1": dict(type="float", min_value=0.0, max_value=1.0)}
+        return {"choice": dict(type="float", min_value=0.0, max_value=1.0)}
 
     # Optional, should only be defined if environment has a natural maximum
     # episode length
@@ -36,6 +35,6 @@ class CustomEnvironment(Environment):
 
     def execute(self, actions):
         terminal = False
-        sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],actions['option_1'] < actions['option_0'])
-        reward = self.sim.reward(theory, actions['option_1'] < actions['option_0'])
+        self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"],int(actions['choice'] > 0.5))
+        reward = self.sim.reward('util', actions['choice'] > 0.5)
         return self.sim.state(), terminal, reward

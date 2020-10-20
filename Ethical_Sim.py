@@ -21,6 +21,8 @@ class Ethical_Sim:
         self.QUESTION_COUNT = questionCount
 
         #Load list of dilemmas into memory
+        self.dilemmas = []
+        self.dilemmasDone = []
         for item in json_array:
             self.dilemmas.append(item)
 
@@ -58,7 +60,7 @@ class Ethical_Sim:
 
     #return the current dilemma the player is doing, which should be the last one
     def getCurrentDilemma(self):
-        return self.dilemmas[-1]
+        return self.dilemmasDone[-1]
 
     #Utilitarian reward, based on creating the most good, this is going to 
     #look at helping the most people.  Life or death is valued at a 1, pain is 
@@ -225,7 +227,11 @@ class Ethical_Sim:
     def state(self):
         ret = []
         ret.append(self.dilemmasDone[-1]["id"]) # add ID,1
-        modifiers = [-1] * 5 # blank, read in next modifiers,5
+        modifiers = [-1] * 6 # blank, read in next modifiers,5
+        
+        print("id: " + str(self.dilemmasDone[-1]["id"]))
+        print("mod: " + str(len(self.dilemmasDone[-1]["Modifiers"])))
+        print(self.dilemmasDone[-1]["Modifiers"])
         for ind,modifier in enumerate(self.dilemmasDone[-1]["Modifiers"]):
             if modifier in self.gifts:
                 value = self.gifts.index(modifier)
@@ -241,6 +247,7 @@ class Ethical_Sim:
         ret.append(modifiers)    
 
         relationships = [-1] * 3 #blank, read in relation values,3 
+        print("rel: " + str(len(self.dilemmasDone[-1]["Relationships"])))
         for ind, rel in enumerate(self.dilemmasDone[-1]["Relationships"]):
             value = self.relations.index(rel)
             value = self.relation_values[value]
@@ -251,11 +258,11 @@ class Ethical_Sim:
         for row in ret:
             if isinstance(row, list):
                 for item in row:
-                    ret_flat.append(item)
+                    ret_flat.append(float(item))
             else:
-                ret_flat.append(row)
+                ret_flat.append(float(row))
         return ret_flat
     
-sim = Ethical_Sim(20)
-sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],0)
-print(sim.state())
+#sim = Ethical_Sim(20)
+#sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],0)
+#print(sim.state())
