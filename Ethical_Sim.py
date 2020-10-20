@@ -1,6 +1,7 @@
 import random
 import json
 import sys
+import numpy as np
 
 class Ethical_Sim:
     dilemmas = [] #Dilemmas that the player will tackle
@@ -205,7 +206,56 @@ class Ethical_Sim:
             return numer_1 / num_1_count
         else:
             return numer_2 / num_1_count
-            
+
+    def reward(self, theory, choice):
+        if theory == "util":
+            return self.utilitarianReward(self.dilemmasDone[-1], choice)
+        elif theory == "deon":
+            return self.deontologyReward(self.dilemmasDone[-1], choice)
+        else:
+            return self.virtueEthicsReward(self.dilemmasDone[-1], choice)
+
+    def get_rules(self):
+        ret = []
+        for dilemma in self.dilemmas:
+            ret.append(dilemma['target_0'])
+            ret.append(dilemma['target_1'])
+        return ret
+    
+    def state(self):
+        ret = []
+        ret.append(self.dilemmasDone[-1]["id"]) # add ID,1
+        modifiers = [-1] * 5 # blank, read in next modifiers,5
+        for ind,modifier in enumerate(self.dilemmasDone[-1]["Modifiers"]):
+            if modifier in self.gifts:
+                value = self.gifts.index(modifier)
+                value = self.gift_values[value]
+                modifiers[ind] = value
+            elif modifier in self.results:
+                value = self.results.index(modifier)
+                value = self.results_values[value]
+                modifiers[ind] = value
+            else:
+                value = float(modifier)
+                modifiers[ind] = value
+        ret.append(modifiers)    
+
+        relationships = [-1] * 3 #blank, read in relation values,3 
+        for ind, rel in enumerate(self.dilemmasDone[-1]["Relationships"]):
+            value = self.relations.index(rel)
+            value = self.relation_values[value]
+            relationships[ind] = value
+        ret.append(relationships)
+        ret.append([item for sublist in self.get_rules() for item in sublist]) # add ruleset, 24
+        ret_flat = []
+        for row in ret:
+            if isinstance(row, list):
+                for item in row:
+                    ret_flat.append(item)
+            else:
+                ret_flat.append(row)
+        return ret_flat
     
 sim = Ethical_Sim(20)
 sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],0)
+print(sim.state())
