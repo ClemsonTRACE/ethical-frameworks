@@ -2,6 +2,7 @@ import random
 import json
 import sys
 import numpy as np
+import copy
 
 class Ethical_Sim:
     dilemmas = [] #Dilemmas that the player will tackle
@@ -28,13 +29,15 @@ class Ethical_Sim:
 
         #Generate initial node randomly
         self.makeNextDilemma(random.randint(0,len(self.dilemmas)-1), random.randint(0,1))
+        
 
     #Make a decision on the current dilemma and pick the next one, this needs 
     #to be separate form the sending of a dilemma due to the first node being 
     #randomly generated
     def makeNextDilemma(self, currentDilemma, decision):
         nextDilemma = random.choice(self.dilemmas[currentDilemma]["target_"+str(decision)])
-        node = self.dilemmas[nextDilemma].copy()
+        node = copy.deepcopy(self.dilemmas[nextDilemma])
+        
         for ind, mod in enumerate(node["Modifier_Types"]):
             if mod == self.modifierTypes[0]: #People
                 node["Modifiers"].append(random.randint(0, 10))
@@ -52,11 +55,13 @@ class Ethical_Sim:
                 node["Modifiers"].append(random.choice(self.gifts))
             node["Description"] = node["Description"].replace("[M"+str(ind)+"]", str(node["Modifiers"][-1]))
         
+        
         for relation in range(0, node["Relation_Count"]):
             node["Relationships"].append(random.choice(self.relations))
             node["Description"] = node["Description"].replace("[relation_"+str(relation)+"]", node["Relationships"][-1])
 
         self.dilemmasDone.append(node)
+        
 
     #return the current dilemma the player is doing, which should be the last one
     def getCurrentDilemma(self):
@@ -96,7 +101,6 @@ class Ethical_Sim:
                 mul.append(1)
         for i in range(len(base)):  
             numer_1 += base[i] * mul[i]
-        
         base = []
         mul = []
         for value in dilemma['util_values_1']:
@@ -124,6 +128,9 @@ class Ethical_Sim:
                 mul.append(1)
         for i in range(len(base)):
             numer_2 += base[i] * mul[i]
+
+        if numer_1 == 0 and numer_2 == 0:
+            return 0
 
         if not decision: #decision 0
             return numer_1 / (numer_1 + numer_2)
@@ -229,9 +236,6 @@ class Ethical_Sim:
         ret.append(self.dilemmasDone[-1]["id"]) # add ID,1
         modifiers = [-1] * 6 # blank, read in next modifiers,5
         
-        print("id: " + str(self.dilemmasDone[-1]["id"]))
-        print("mod: " + str(len(self.dilemmasDone[-1]["Modifiers"])))
-        print(self.dilemmasDone[-1]["Modifiers"])
         for ind,modifier in enumerate(self.dilemmasDone[-1]["Modifiers"]):
             if modifier in self.gifts:
                 value = self.gifts.index(modifier)
@@ -247,7 +251,6 @@ class Ethical_Sim:
         ret.append(modifiers)    
 
         relationships = [-1] * 3 #blank, read in relation values,3 
-        print("rel: " + str(len(self.dilemmasDone[-1]["Relationships"])))
         for ind, rel in enumerate(self.dilemmasDone[-1]["Relationships"]):
             value = self.relations.index(rel)
             value = self.relation_values[value]

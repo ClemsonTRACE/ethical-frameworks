@@ -36,5 +36,5 @@ class CustomEnvironment(Environment):
     def execute(self, actions):
         terminal = False
         self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"],int(actions['choice'] > 0.5))
-        reward = self.sim.reward('util', actions['choice'] > 0.5)
+        reward = self.sim.reward('virtue', actions['choice'] > 0.5)
         return self.sim.state(), terminal, reward
