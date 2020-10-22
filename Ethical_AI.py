@@ -16,7 +16,7 @@ from tensorforce import Runner
 
 # Create an OpenAI-Gym environment
 environment = Environment.create(
-    environment='cenv.CustomEnvironment', max_episode_timesteps=40
+    environment='cenv.CustomEnvironment', max_episode_timesteps=25
 )
 
 # Create a PPO agent
@@ -29,7 +29,7 @@ agent = Agent.create(
     batch_size=20, update_frequency=5, learning_rate=3e-4, multi_step=10,
     subsampling_fraction=0.33,
     # Exploration
-    exploration=0.2, variable_noise=0.0,
+    exploration=0.1, variable_noise=0.0,
     # Default additional config values
     config=None,
     parallel_interactions=1,
