@@ -16,7 +16,7 @@ class CustomEnvironment(Environment):
         super().__init__() 
     
     def states(self):
-        return dict(type='float', shape=(38,))
+        return dict(type='float', shape=(24,))
 
     def actions(self):
         return {"choice": dict(type="float", min_value=0.0, max_value=1.0)}
@@ -34,6 +34,12 @@ class CustomEnvironment(Environment):
         self.sim = Ethical_Sim(20)
         return self.sim.state()
 
+    def getCurrentDilemma(self):
+        return self.sim.dilemmasDone[-1]
+
+    def getState(self):
+        return self.sim.state()
+
     def execute(self, actions):
         terminal = False
         #choice selection
@@ -46,5 +52,5 @@ class CustomEnvironment(Environment):
                 choice = int(random.uniform(0,1) < 1 - actions['choice'])
         #print("choice: " + str(actions['choice']))
         self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"], choice)
-        reward = self.sim.reward('virtue', actions['choice'] > 0.5)
+        reward = self.sim.reward('util', actions['choice'] > 0.5)
         return self.sim.state(), terminal, reward

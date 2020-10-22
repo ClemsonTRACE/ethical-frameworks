@@ -26,8 +26,14 @@ class Ethical_Sim:
         self.dilemmas = []
         self.dilemmasDone = []
         for item in json_array:
-            item['target_0'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
-            item['target_1'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
+            #Multi-Target Size 38
+            #item['target_0'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
+            #item['target_1'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
+            possible_targets = [0,1,2,3,4,4,5,6]
+            possible_targets.remove(int(item['id']))
+            #Single Targets, Size 24
+            item['target_0'] = [random.choice(possible_targets)]
+            item['target_1'] = [random.choice(possible_targets)]
             self.dilemmas.append(item)
 
         #Generate initial node randomly
@@ -136,9 +142,17 @@ class Ethical_Sim:
             return 0
 
         if not decision: #decision 0
-            return numer_1 / (numer_1 + numer_2)
+            if numer_1 >= numer_2:
+                return 1
+            else:
+                return numer_1 / (numer_1 + numer_2) / 2
+        #    return int(numer_1 > numer_2) 
         else: #decision 1
-            return numer_2 / (numer_1 + numer_2)
+            if numer_2 >= numer_1:
+                return 1
+            else:
+                return numer_2 / (numer_1 + numer_2) / 2
+        #    return int(numer_2 > numer_1)
 
     #The deontology reward is based on a strict act based deontology where 
     #hard rules are set and not broken. These are scored with 0 for break
@@ -163,9 +177,11 @@ class Ethical_Sim:
                 numer_2 += float(value)
                 num_2_count += 1
         if not decision:
-            return numer_1 / num_1_count
+        #    return numer_1 / num_1_count
+            return int(numer_1 > numer_2)
         else:
-            return numer_2 / num_2_count
+        #    return numer_2 / num_2_count
+            return int(numer_2 > numer_1)
 
 
     #Virtues ethics are based on common virtues that are seen in humans.  While 
@@ -215,9 +231,11 @@ class Ethical_Sim:
                 numer_2 += float(value)
                 num_2_count += 1
         if not decision:
-            return numer_1 / num_1_count
+        #    return numer_1 / num_1_count
+            return int(numer_1 > numer_2)
         else:
-            return numer_2 / num_1_count
+        #    return numer_2 / num_1_count
+            return int(numer_2 > numer_1)
 
     def reward(self, theory, choice):
         if theory == "util":
@@ -270,5 +288,6 @@ class Ethical_Sim:
         return ret_flat
     
 #sim = Ethical_Sim(20)
+     
 #sim.makeNextDilemma(sim.dilemmasDone[-1]["id"],0)
 #print(sim.state())
