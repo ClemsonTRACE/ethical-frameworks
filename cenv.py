@@ -1,5 +1,6 @@
 import os
 import logging
+import random
 
 import tensorflow as tf
 
@@ -10,7 +11,7 @@ from tensorforce.execution import Runner
 from Ethical_Sim import Ethical_Sim
 
 class CustomEnvironment(Environment):
-    sim = Ethical_Sim(20)
+    #sim = Ethical_Sim(20)
     def __init__(self):
         super().__init__() 
     
@@ -35,6 +36,15 @@ class CustomEnvironment(Environment):
 
     def execute(self, actions):
         terminal = False
-        self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"],int(actions['choice'] > 0.5))
+        #choice selection
+        if False: #make true to do over 0.5
+            choice = int(actions['choice'] > 0.5)
+        else: #make False for pseudo random
+            if actions['choice'] > 0.5:
+                choice = int(random.uniform(0,1) < actions['choice'])
+            else:
+                choice = int(random.uniform(0,1) < 1 - actions['choice'])
+        #print("choice: " + str(actions['choice']))
+        self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"], choice)
         reward = self.sim.reward('virtue', actions['choice'] > 0.5)
         return self.sim.state(), terminal, reward

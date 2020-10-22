@@ -5,10 +5,11 @@ import numpy as np
 import copy
 
 class Ethical_Sim:
-    dilemmas = [] #Dilemmas that the player will tackle
+    #dilemmas = [] #Dilemmas that the player will tackle
     gifts = ["A Hat", "A Board Game", "A Sweater", "A Bike", "A Computer"]
     gift_values = [0.2, 0.4, 0.6, 0.8, 1]
-    dilemmasDone = [] #Dilemma list the player traversed
+    DILEMMA_COUNT = 7
+    #dilemmasDone = [] #Dilemma list the player traversed
     QUESTION_COUNT = None #Number of questions we want to ask
     modifierTypes = ("P_Number", "T_Number", "H_Percent", "M_Percent", "L_Percent", "Result", "Gift")
     relations = ("Family Member(s)", "Friend(s)", "Stranger(s)")
@@ -25,6 +26,8 @@ class Ethical_Sim:
         self.dilemmas = []
         self.dilemmasDone = []
         for item in json_array:
+            item['target_0'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
+            item['target_1'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
             self.dilemmas.append(item)
 
         #Generate initial node randomly
