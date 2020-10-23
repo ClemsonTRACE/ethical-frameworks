@@ -1,18 +1,28 @@
+#Script responsible for training the AI agents 
+#This file does not do any testing but simply trains and saves an agent
+#Uses the tensorforce agents and the custom environment design in this repo
+
+#Imported for command line arguments, not used in the current design
 import argparse
 
 parser = argparse.ArgumentParser()
 #parser.add_argument("--theory", help="select an agent type [ppo, vpg, dqn]")
 #args = parser.parse_args()
 
+#These are imported if I need to run stuff on the server 
 import os
 import logging
 
+#Tenforforce imputs
 from tensorforce.agents import Agent
 from tensorforce.environments import Environment
 from tensorforce.execution import Runner
+from tensorforce import Runner
+
+#Custome file inputs
 import cenv
 from Ethical_Sim import Ethical_Sim
-from tensorforce import Runner
+
 
 # Create an OpenAI-Gym environment
 environment = Environment.create(
@@ -41,5 +51,7 @@ runner = Runner(agent=agent, environment=environment)
 # Start the runner
 runner.run(num_episodes=100000)
 runner.close()
+
+#save the agent in the working directory
 agent.save(directory='.', format='numpy', append='episodes')
 
