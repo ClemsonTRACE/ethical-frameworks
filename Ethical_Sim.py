@@ -34,7 +34,6 @@ class Ethical_Sim:
         #Get teh dilemma stuff from the json file
         json_array = json.load(open("Dilemna.json"))
         self.QUESTION_COUNT = questionCount
-
         #Load list of dilemmas into memory
         self.dilemmas = []
         self.dilemmasDone = []
@@ -42,7 +41,7 @@ class Ethical_Sim:
             #Multi-Target Size 38
             #item['target_0'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
             #item['target_1'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
-            possible_targets = [0,1,2,3,4,4,5,6]
+            possible_targets = [0,1,2,3,4,5,6]
             possible_targets.remove(int(item['id']))
             #Single Targets, Size 24
             item['target_0'] = [random.choice(possible_targets)]
@@ -75,6 +74,10 @@ class Ethical_Sim:
                 node["Modifiers"].append(random.choice(self.results))
             elif mod == self.modifierTypes[6]: #Gift
                 node["Modifiers"].append(random.choice(self.gifts))
+            if mod == self.modifierTypes[2] or mod == self.modifierTypes[3] or mod == self.modifierTypes[4]:
+                sub = int(node["Modifiers"][-1] + 100)
+            else:
+                sub = str(node["Modifiers"][-1])
             node["Description"] = node["Description"].replace("[M"+str(ind)+"]", str(node["Modifiers"][-1]))
         
         #Generate the relationships in values 
@@ -213,11 +216,11 @@ class Ethical_Sim:
 
         #Calculate, may want to scale over binary decision
         if not decision:
-        #    return numer_1 / num_1_count
-            return int(numer_1 > numer_2)
+            return numer_1 / num_1_count
+        #    return int(numer_1 > numer_2)
         else:
-        #    return numer_2 / num_2_count
-            return int(numer_2 > numer_1)
+            return numer_2 / num_2_count
+        #    return int(numer_2 > numer_1)
 
 
     #Virtues ethics are based on common virtues that are seen in humans.  While 
@@ -269,11 +272,11 @@ class Ethical_Sim:
                 numer_2 += float(value)
                 num_2_count += 1
         if not decision:
-        #    return numer_1 / num_1_count
-            return int(numer_1 > numer_2)
+            return numer_1 / num_1_count
+        #    return int(numer_1 > numer_2)
         else:
-        #    return numer_2 / num_1_count
-            return int(numer_2 > numer_1)
+            return numer_2 / num_1_count
+        #    return int(numer_2 > numer_1)
 
     #General reward choice function, here to make other code cleaner
     def reward(self, theory, choice):

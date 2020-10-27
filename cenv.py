@@ -50,6 +50,9 @@ class CustomEnvironment(Environment):
     def getState(self):
         return self.sim.state()
 
+    def getReward(self, theory, action):
+        return self.sim.reward(theory, action)
+
     #Actual tasks done from from state creation to agent action. 
     def execute(self, actions):
         #Only here for future reference, don't need

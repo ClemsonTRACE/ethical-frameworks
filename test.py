@@ -33,8 +33,16 @@ while True:
     choice = int(actions['choice'] > 0.5)
     choice_raw = actions['choice']
     print(dilemma['Description'])
-    print('\n Option 0: ' + dilemma['Option_0'] + '\n')
+    print('\n Option 0: ' + dilemma['Option_0'])
+    util_r = str(environment.getReward('util', 0))
+    deon_r = str(environment.getReward('deon', 0))
+    virt_r = str(environment.getReward('virtue', 0))
+    print(" -- Util Reward: " + util_r + "" + " -- Deon Reward: " + deon_r + " -- Virtue Reward: " + virt_r + '\n')
     print('\n Option_1: ' + dilemma['Option_1'] + '\n')
+    util_r = str(environment.getReward('util', 1))
+    deon_r = str(environment.getReward('deon', 1))
+    virt_r = str(environment.getReward('virtue', 1))
+    print(" -- Util Reward: " + util_r + "" + " -- Deon Reward: " + deon_r + " -- Virtue Reward: " + virt_r + '\n') 
     print('\n The AI has chosen option: ' + str(choice))
     print('With a Raw Value of ' + str(choice_raw) + '\n')
 
