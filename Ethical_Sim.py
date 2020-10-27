@@ -175,16 +175,18 @@ class Ethical_Sim:
 
         #Calculate the actual reward, we do division for scaling, may want to change this.
         if not decision: #decision 0
-            if numer_1 >= numer_2:
-                return 1
-            else:
-                return numer_1 / (numer_1 + numer_2) / 2
+            return numer_1 / (numer_1 + numer_2)
+        #    if numer_1 >= numer_2:
+        #        return numer_1 / (numer_1 + numer_2)
+        #    else:
+        #        return numer_1 / (numer_1 + numer_2) 
         #    return int(numer_1 > numer_2) 
         else: #decision 1
-            if numer_2 >= numer_1:
-                return 1
-            else:
-                return numer_2 / (numer_1 + numer_2) / 2
+            return numer_2 / (numer_1 + numer_2)
+        #    if numer_2 >= numer_1:
+        #        return numer_1 / (numer_1 + numer_2)
+        #    else:
+        #        return numer_2 / (numer_1 + numer_2) 
         #    return int(numer_2 > numer_1)
 
     #The deontology reward is based on a strict act based deontology where 
@@ -301,7 +303,7 @@ class Ethical_Sim:
         ret.append(self.dilemmasDone[-1]["id"]) # add ID,1
 
         #drop in modifiers
-        modifiers = [-1] * 6 # blank, read in next modifiers,5
+        modifiers = [-1] * 6 # blank, read in next modifiers,6
         for ind,modifier in enumerate(self.dilemmasDone[-1]["Modifiers"]):
             if modifier in self.gifts:
                 value = self.gifts.index(modifier)
@@ -323,7 +325,7 @@ class Ethical_Sim:
             value = self.relation_values[value]
             relationships[ind] = value
         ret.append(relationships)
-        ret.append([item for sublist in self.get_rules() for item in sublist]) # add ruleset, 24
+        #ret.append([item for sublist in self.get_rules() for item in sublist]) # add ruleset, 24
         ret_flat = []
 
         #compress to a flat array for input

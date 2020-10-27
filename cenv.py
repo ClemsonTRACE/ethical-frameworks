@@ -22,11 +22,12 @@ class CustomEnvironment(Environment):
     
     #Input layer state of the AI system. Single array of size 24
     def states(self):
-        return dict(type='float', shape=(24,))
+        return dict(type='float', shape=(10,))
 
     #Action outputs of network. Single value, option_0 < 0.5 < option_1
     def actions(self):
-        return {"choice": dict(type="float", min_value=0.0, max_value=1.0)}
+        #return {"choice": dict(type="float",num_values=1, min_value=0.0, max_value=1.0)}
+        return dict(type="float", min_value=0.0, max_value=1.0)
 
     # Optional, should only be defined if environment has a natural maximum
     # episode length
@@ -60,18 +61,18 @@ class CustomEnvironment(Environment):
 
         #choice selection
         if False: #make true to do over 0.5, good for absolute choices
-            choice = int(actions['choice'] > 0.5)
+            choice = int(actions > 0.5)
         else: #make False for pseudo random, good for adjusting confidence levels
-            if actions['choice'] > 0.5:
-                choice = int(random.uniform(0,1) < actions['choice'])
+            if actions > 0.5:
+                choice = int(random.uniform(0,1) < actions)
             else:
-                choice = int(random.uniform(0,1) < 1 - actions['choice'])
+                choice = int(random.uniform(0,1) < 1 - actions)
 
         #Make the actual decision, thus creating the new state of the game
         self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"], choice)
 
         #get the reward based on the action
-        reward = self.sim.reward('util', actions['choice'] > 0.5)
+        reward = self.sim.reward('util',choice)
 
         #return the new state, the terminal (always False), and the reward
         return self.sim.state(), terminal, reward

@@ -27,11 +27,11 @@ while True:
     input("\n ***Press Enter For Next Dilemma*** \n")
     
     #Have the AI Generate Actions based on Current Dilemma
-    actions = agent.act(states=environment.getState())
+    actions = agent.act(states=environment.getState(), independent=True, deterministic=True)
 
     #Output printing for human verification
-    choice = int(actions['choice'] > 0.5)
-    choice_raw = actions['choice']
+    choice = int(actions > 0.5)
+    choice_raw = actions
     print(dilemma['Description'])
     print('\n Option 0: ' + dilemma['Option_0'])
     util_r = str(environment.getReward('util', 0))
@@ -50,6 +50,6 @@ while True:
     states, terminal, reward = environment.execute(actions=actions)
 
     #Give reward to agent, needed to do another action
-    agent.observe(terminal=terminal, reward=reward)
+    #agent.observe(terminal=terminal, reward=reward)
 
 
