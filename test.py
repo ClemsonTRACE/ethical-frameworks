@@ -10,13 +10,21 @@ from tensorforce.environments import Environment
 import cenv
 from Ethical_Sim import Ethical_Sim
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--theory", help="select an agent type [ppo, vpg, dqn]")
+args = parser.parse_args()
+
 # Create an OpenAI-Gym environment
 environment = Environment.create(
     environment='cenv.CustomEnvironment', max_episode_timesteps=100
 )
 
+agent_directory = './' + args.theory + '_agent'
+
 #Load the Agent Previously Saved
-agent = Agent.load(directory='.', format='numpy', environment=environment)
+agent = Agent.load(directory=agent_directory, format='numpy', environment=environment)
 
 #Set up the Environment
 environment.reset()

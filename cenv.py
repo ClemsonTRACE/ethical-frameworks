@@ -72,7 +72,7 @@ class CustomEnvironment(Environment):
         self.sim.makeNextDilemma(self.sim.dilemmasDone[-1]["id"], choice)
 
         #get the reward based on the action
-        reward = self.sim.reward('util',choice)
+        reward = self.sim.reward('virtue',choice)
 
         #return the new state, the terminal (always False), and the reward
         return self.sim.state(), terminal, reward
