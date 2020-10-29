@@ -12,7 +12,7 @@ from Ethical_Sim import Ethical_Sim
 
 # Create an OpenAI-Gym environment
 environment = Environment.create(
-    environment='cenv.CustomEnvironment', max_episode_timesteps=25
+    environment='cenv.CustomEnvironment', max_episode_timesteps=100
 )
 
 #Load the Agent Previously Saved
