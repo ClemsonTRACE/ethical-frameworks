@@ -22,7 +22,7 @@ class CustomEnvironment(Environment):
     
     #Input layer state of the AI system. Single array of size 24
     def states(self):
-        return dict(type='float', shape=(10,))
+        return dict(type='float', shape=(25,))
 
     #Action outputs of network. Single value, option_0 < 0.5 < option_1
     def actions(self):

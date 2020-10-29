@@ -37,7 +37,9 @@ class Ethical_Sim:
         #Load list of dilemmas into memory
         self.dilemmas = []
         self.dilemmasDone = []
+        self.flipIndex = []
         for item in json_array:
+            self.flipIndex.append(random.randint(0,1))
             #Multi-Target Size 38
             #item['target_0'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
             #item['target_1'] = [random.randint(0,self.DILEMMA_COUNT-1),random.randint(0,self.DILEMMA_COUNT-1)]
@@ -46,6 +48,31 @@ class Ethical_Sim:
             #Single Targets, Size 24
             item['target_0'] = [random.choice(possible_targets)]
             item['target_1'] = [random.choice(possible_targets)]
+            if self.flipIndex[-1]:
+                swap = item['Option_1']
+                item['Option_1'] = item['Option_0']
+                item['Option_0'] = swap
+                
+                swap = item['util_values_1'].copy()
+                item['util_values_1'] = item['util_values_0'].copy()                
+                item['util_values_0'] = swap.copy()
+
+                swap = item['deon_values_1'].copy()
+                item['deon_values_1'] = item['deon_values_0'].copy()
+                item['deon_values_0'] = swap.copy()
+
+                swap = item['deon_mods_1'].copy()
+                item['deon_mods_1'] = item['deon_mods_0'].copy()
+                item['deon_mods_0'] = swap.copy()
+
+                swap = item['virtue_values_1'].copy()
+                item['virtue_values_1'] = item['virtue_values_0'].copy()
+                item['virtue_values_0'] = swap.copy()
+    
+                swap = item['virtue_mods_1'].copy()
+                item['virtue_mods_1'] = item['virtue_mods_0'].copy()
+                item['virtue_mods_0'] = swap.copy()
+
             self.dilemmas.append(item)
 
         #Generate initial node randomly
@@ -301,7 +328,7 @@ class Ethical_Sim:
     def state(self):
         ret = []
         ret.append(self.dilemmasDone[-1]["id"]) # add ID,1
-
+        ret.append(self.flipIndex[int(self.dilemmasDone[-1]["id"])])
         #drop in modifiers
         modifiers = [-1] * 6 # blank, read in next modifiers,6
         for ind,modifier in enumerate(self.dilemmasDone[-1]["Modifiers"]):
@@ -325,7 +352,7 @@ class Ethical_Sim:
             value = self.relation_values[value]
             relationships[ind] = value
         ret.append(relationships)
-        #ret.append([item for sublist in self.get_rules() for item in sublist]) # add ruleset, 24
+        ret.append([item for sublist in self.get_rules() for item in sublist]) # add ruleset, 24
         ret_flat = []
 
         #compress to a flat array for input
