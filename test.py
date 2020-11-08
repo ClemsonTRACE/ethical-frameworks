@@ -24,7 +24,11 @@ environment = Environment.create(
 agent_directory = './' + args.theory + '_agent'
 
 #Load the Agent Previously Saved
-agent = Agent.load(directory=agent_directory, format='numpy', environment=environment)
+util_agent = Agent.load(directory='./util_agent', format='numpy', environment=environment)
+
+deon_agent = Agent.load(directory='./deon_agent', format='numpy', environment=environment)
+
+agent = util_agent
 
 #Set up the Environment
 environment.reset()
