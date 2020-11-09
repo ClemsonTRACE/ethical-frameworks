@@ -1,7 +1,8 @@
 [
     {
         "id":0,
-        "Name":"Trolley Problem",
+        "Name":"Autonomous Vehicle Crash Decisions.",
+        "Summary": "You are in an autonomous vehicle that is about to crash and you must choose which group of people your car should crash into.",
         "Description":"You are in your autonomous vehicle approaching a intersection with a crosswalk where [M0] pedestrians are walking and a sidewalk to your right, with [M1] pedestrians. The pedestrian(s) in the crosswalk are [relation_0]. The pedestrian(s) on the sidewalk are [relation_1]. In approaching the intersection, your brakes fail, you cannot slow down, and your autonomous vehicle must choose one of the following two options. What should your autonomous vehicle be programmed to do?",
         "Option_1":"Continue driving forward, killing the predestrians in the crosswalk",
         "Option_0":"Swerve to the right, killing the pedestrians on the sidewalk",
@@ -25,7 +26,8 @@
     },
     {
         "id":1,
-        "Name":"Organ Donor",
+        "Name":"Choosing to Donate an Organ.",
+        "Summary": "You are asked to donate a kidney to save a person's life.",
         "Description":"You have the choice to donate a kidney to a person who has a [M0]% chance of dying without a kidney transplant. The person in need is [relation_0]. You have a [M1]% chance of dying in surgery, but otherwise you will suffer little to no negative side effects from the transplant, as your remaining kidney will enlarge to replace the functioning of the one that was removed. What should you do?",
         "Option_0":"Donate your kidney",
         "Option_1":"Don't donate your kidney",
@@ -49,7 +51,8 @@
     },
     {
         "id":2,
-        "Name":"Stealing Food to Feed People",
+        "Name":"Stealing Food to Feed People.",
+        "Summary": "You are asked whether or not you will steal food to feed starving people. ",
         "Description":"You live in a war-torn region ravaged by famine and scarcity. [relation_0] are starving and need food to survive. There is a store which you can steal from with a [M0]% chance of getting caught. If you do not steal, [M1] [relation_0] will die of starvation in a week. If you do steal, you will feed [M1] for about a week. What should you do?",
         "Option_0":"Steal the food",
         "Option_1":"Don't steal the food",
@@ -73,7 +76,8 @@
     },
     {
         "id":3,
-        "Name":"Robbery For Medical Purposes",
+        "Name":"Robbery For Medical Purposes.",
+        "Summary": "You are asked to steal from a pharmacy to obtain essential medication.",
         "Description":"A [relation_0] is suffering from a Medical condition that requires medication. There is a Pharmacy which you can steal the medication from with a [M0]% chance of getting caught. The [relation_0] has a [M1]% chance of [M2] if you do not steal. What should you do?",
         "Option_1":"Steal the medication",
         "Option_0":"Don't steal the medication",
@@ -97,7 +101,8 @@
     },
     {
         "id":4,
-        "Name":"Lying about a gift",
+        "Name":"Lying about a gift.",
+        "Summary": "You are asked to choose whether or not to accept or return a gift you do not like.",
         "Description":"You receive [M0] from [relation_0] as a gift, which you do not like. The [relation_0] really hopes you like it and would be very sad if you told them you didn't. If you tell the truth, they will return the gift and give you the refund, but will be offended and hurt for some time. If you lie, you will keep the gift and will never use it, but will have to pretend to like it when asked about it by [relation_0]. What should you do?",
         "Option_1":"Tell them you do not like the gift",
         "Option_0":"Lie and tell them you like gift",
@@ -121,7 +126,8 @@
     },
     {
         "id":5,
-        "Name":"Killing one or two die",
+        "Name":"Killing one to save another.",
+        "Summary": "You are asked to personally kill an individual to save the life of another.",
         "Description":"You are in a hostage situation in which you and two others have been kidnapped. Your captor gives you a choice: you have to kill one of the other hostages yourself or he will kill both of the other hostages himself. The other two hostages are [relation_0]. What should you do?",
         "Option_1":"Kill the one person",
         "Option_0":"Let your captor kill both people",
@@ -145,7 +151,8 @@
     },
     {
         "id":6,
-        "Name":"Hit by a Pickpocket",
+        "Name":"You've been Pickpocketed",
+        "Summary": "You are pickpocketed and have to choose between chasing after the pickpocket or reporting the crime.",
         "Description": "While walking on the sidewalk you are pickpocketed. The pickpocket has taken your [M0] and is running away from you. You are physically capable of chasing the pickpocket down, tackling him, and recovering your [M0] with a [M1]% of causing Harm to the pickpocket. You have a [M2]% chance of remaining unharmed from the tustle. Afterwards, the pickpocket will run away. Alternatively, you can do nothing and instead call the police, with a [M3]% chance of recovering your [M0]. What should you do?",
         "Option_0":"Chase down and tackle the pickpocket",
         "Option_1":"Do nothing and call the police",
